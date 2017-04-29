@@ -1,33 +1,30 @@
 ﻿using System;
 namespace PresetPedalForms
 {
-    public class DIGExpression : ExpressionDevice
+    public class POG :  ExpressionDevice
     {
-        public DIGExpression()
+        public POG()
         {
         }
 
         public override ManufacturerTypeCode ManufacturerTypeCode
         {
-            get { return ManufacturerTypeCode.STRYMON; }
+            get { return ManufacturerTypeCode.ELECTROHARMONIX; }
         }
 
         public override DeviceTypeCode DeviceTypeCode
         {
-            get { return DeviceTypeCode.DIG; }
+            get { return DeviceTypeCode.POG; }
         }
 
         public override byte ManualMessageType
         {
-            get
-            {
-                return 0xA0;
-            }
+            get { return 0x0D; }
         }
 
         public override ExpressionDevice Copy()
         {
-        	var device = new DIGExpression();
+        	var device = new POG();
         	device.ExpressionDoubleValue = this.ExpressionDoubleValue;
         	return device;
         }

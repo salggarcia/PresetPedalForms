@@ -12,6 +12,7 @@ namespace PresetPedalForms
         DPC8 = 6,
         DIG = 7,
         RIVERSIDE = 8,
-        WETREVERB = 9
+        WETREVERB = 9,
+        POG = 10
     }
 }

@@ -22,6 +22,8 @@ namespace PresetPedalForms
             (bindable as LoopButton).Selected = (bool)newValue;
         }
 
+        public int LoopNumber { get; set; }
+
         public bool Selected
         {
             get { return (bool)GetValue(SelectedProperty); }
@@ -41,7 +43,6 @@ namespace PresetPedalForms
                 this.TextColor = Color.Default;
             }
         }
-
          
     }
 }

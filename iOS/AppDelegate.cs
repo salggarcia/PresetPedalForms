@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using PresetPedalForms.iOS;
 using Foundation;
 using UIKit;
+using Xamarin.Forms;
+using PresetPedalForms;
 
+[assembly: ExportRenderer(typeof(MovableViewCell), typeof(MovableViewCellRenderer))]
 namespace PresetPedalForms.iOS
 {
     [Register("AppDelegate")]

@@ -8,6 +8,7 @@ namespace PresetPedalForms
         EVENTIDE = 2,
         LINE6 = 3,
         DISASTERAREA = 4,
-        NEUNABER = 5
+        NEUNABER = 5,
+        ELECTROHARMONIX = 6
     }
 }

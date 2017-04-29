@@ -8,6 +8,7 @@ using System.Text;
 
 using System.Diagnostics;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 namespace PresetPedalForms.Models
 {
@@ -18,45 +19,12 @@ namespace PresetPedalForms.Models
             ID = GetIDFromTime();
             Name = "New Preset";
 
-            Loops = new List<bool>(App.mainProfile.NumberOfLoops);
-            Loops.Resize(App.mainProfile.NumberOfLoops, false);
-
+            //Loops = new List<bool>();
+            //Loops.Resize(App.mainProfile.NumberOfLoops, false);
+            LoopDevices = App.mainProfile.LoopDevices.ToList();
             MidiDevices = App.mainProfile.MidiDevices.Select(m => Activator.CreateInstance(m) as MidiDevice).ToList();
             ExpressionDevices = App.mainProfile.ExpressionDevices.Select(m => Activator.CreateInstance(m) as ExpressionDevice).ToList();
             SwitchDevices = App.mainProfile.SwitchDevices.Select(m => Activator.CreateInstance(m) as SwitchDevice).ToList();
-
-            // setup devices
-            //foreach(var device in App.mainProfile.MidiDevices)
-            //{
-            //    bindingPreset.MidiDevices.Add(Activator.CreateInstance(device) as MidiDevice);
-            //}
-            //foreach(var device in App.mainProfile.ExpressionDevices)
-            //{
-            //    bindingPreset.ExpressionDevices.Add(Activator.CreateInstance(device) as ExpressionDevice);
-            //}
-            //foreach(var device in App.mainProfile.SwitchDevices)
-            //{
-            //    bindingPreset.SwitchDevices.Add(Activator.CreateInstance(device) as SwitchDevice);
-            //}
-
-            //var tempMidiArray = new MidiDevice[] {};
-            //App.mainProfile.MidiDevices.CopyTo(tempMidiArray);
-            //MidiDevices = tempMidiArray.ToList();
-            //var tempExpArray = new ExpressionDevice[] { };
-            //App.mainProfile.ExpressionDevices.CopyTo(tempExpArray);
-            //ExpressionDevices = tempExpArray.ToList();
-            //var tempSwitchArray = new SwitchDevice[] { };
-            //App.mainProfile.SwitchDevices.CopyTo(tempSwitchArray);
-            //SwitchDevices = tempSwitchArray.ToList();
-
-
-            //TLProgNum = TLProgram.A0;
-            //BSProgNum = BSProgram.A0;
-
-            //MOProgNum = MOProgram.A0;
-            //EXP1Val = 0;
-            //EXP2Val = 0;
-            //TLBPM = 120;
         }
 
         public override string ToString()
@@ -67,22 +35,11 @@ namespace PresetPedalForms.Models
         public long ID { get; set; }
         public string Name { get; set; }
 
-        public List<bool> Loops { get; set; }
+        //public List<bool> Loops { get; set; }
+        public List<LoopDevice> LoopDevices { get; set; }
         public List<MidiDevice> MidiDevices { get; set; }
         public List<ExpressionDevice> ExpressionDevices { get; set; }
         public List<SwitchDevice> SwitchDevices { get; set; }
-
-        //public TLProgram TLProgNum { get; set; }
-        //public BSProgram BSProgNum { get; set; }
-        //public MOProgram MOProgNum { get; set; }
-
-        //public int EXP1Val { get; set; }
-        //public int EXP2Val { get; set; }
-        //public bool FAV { get; set; }
-
-        //public bool TLByp { get; set; }
-        //public bool BSByp { get; set; }
-        //public bool MOByp { get; set; }
 
         //public short TLBPM { get; set; }
     

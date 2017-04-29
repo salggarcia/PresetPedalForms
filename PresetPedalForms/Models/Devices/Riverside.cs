@@ -16,5 +16,17 @@ namespace PresetPedalForms
         {
             get { return DeviceTypeCode.RIVERSIDE; }
         }
+
+        public override byte ManualMessageType
+        {
+            get { return 0x0C; }
+        }
+
+        public override ExpressionDevice Copy()
+        {
+        	var device = new Riverside();
+        	device.ExpressionDoubleValue = this.ExpressionDoubleValue;
+        	return device;
+        }
     }
 }

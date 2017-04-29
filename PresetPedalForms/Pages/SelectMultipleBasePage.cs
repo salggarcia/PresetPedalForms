@@ -35,24 +35,19 @@ namespace PresetPedalForms
         {
             public WrappedItemSelectionTemplate() : base()
             {
-                Label name = new Label();
+                Label name = new Label { VerticalOptions = LayoutOptions.Center };
                 name.SetBinding(Label.TextProperty, new Binding("Item.preset.Name"));
-                Switch mainSwitch = new Switch();
+                Switch mainSwitch = new Switch { VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.EndAndExpand, Scale = 0.75 };
                 mainSwitch.SetBinding(Switch.IsToggledProperty, new Binding("IsSelected"));
-                RelativeLayout layout = new RelativeLayout();
-                layout.Children.Add(name,
-                    Constraint.Constant(5),
-                    Constraint.Constant(5),
-                    Constraint.RelativeToParent(p => p.Width - 60),
-                    Constraint.RelativeToParent(p => p.Height - 10)
-                );
-                layout.Children.Add(mainSwitch,
-                    Constraint.RelativeToParent(p => p.Width - 55),
-                    Constraint.Constant(5),
-                    Constraint.Constant(50),
-                    Constraint.RelativeToParent(p => p.Height - 10)
-                );
-                View = layout;
+
+                var stack = new StackLayout
+                {
+                    Padding = new Thickness(15, 0, 0, 0),
+                    Orientation = StackOrientation.Horizontal,
+                    VerticalOptions = LayoutOptions.Center,
+                    Children = { name, mainSwitch }
+                };
+                View = stack;
             }
         }
         public List<WrappedSelection<T>> WrappedItems = new List<WrappedSelection<T>>();
@@ -64,6 +59,7 @@ namespace PresetPedalForms
                 ItemsSource = WrappedItems,
                 ItemTemplate = new DataTemplate(typeof(WrappedItemSelectionTemplate)),
             };
+            mainList.RowHeight = 35;
 
             mainList.ItemSelected += (sender, e) =>
             {
@@ -77,22 +73,22 @@ namespace PresetPedalForms
             {   // fix issue where rows are badly sized (as tall as the screen) on WinPhone8.1
                 mainList.RowHeight = 40;
                 // also need icons for Windows app bar (other platforms can just use text)
-                ToolbarItems.Add(new ToolbarItem("All", "check.png", SelectAll, ToolbarItemOrder.Primary));
+                //ToolbarItems.Add(new ToolbarItem("All", "check.png", SelectAll, ToolbarItemOrder.Primary));
                 ToolbarItems.Add(new ToolbarItem("None", "cancel.png", SelectNone, ToolbarItemOrder.Primary));
             }
             else
             {
-                ToolbarItems.Add(new ToolbarItem("All", null, SelectAll, ToolbarItemOrder.Primary));
+                //ToolbarItems.Add(new ToolbarItem("All", null, SelectAll, ToolbarItemOrder.Primary));
                 ToolbarItems.Add(new ToolbarItem("None", null, SelectNone, ToolbarItemOrder.Primary));
             }
         }
-        void SelectAll()
-        {
-            foreach (var wi in WrappedItems)
-            {
-                wi.IsSelected = true;
-            }
-        }
+        //void SelectAll()
+        //{
+        //    foreach (var wi in WrappedItems)
+        //    {
+        //        wi.IsSelected = true;
+        //    }
+        //}
         void SelectNone()
         {
             foreach (var wi in WrappedItems)

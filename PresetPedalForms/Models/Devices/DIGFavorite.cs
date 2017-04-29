@@ -1,9 +1,9 @@
 ﻿using System;
 namespace PresetPedalForms
 {
-    public class DIGExpression : ExpressionDevice
+    public class DIGFavorite : SwitchDevice
     {
-        public DIGExpression()
+        public DIGFavorite()
         {
         }
 
@@ -21,15 +21,15 @@ namespace PresetPedalForms
         {
             get
             {
-                return 0xA0;
+                return 0x0E;
             }
         }
 
-        public override ExpressionDevice Copy()
+        public override SwitchDevice Copy()
         {
-        	var device = new DIGExpression();
-        	device.ExpressionDoubleValue = this.ExpressionDoubleValue;
-        	return device;
+            var device = new DIGFavorite();
+            device.SwitchValue = this.SwitchValue;
+            return device;
         }
     }
 }

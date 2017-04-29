@@ -16,5 +16,20 @@ namespace PresetPedalForms
         {
             get { return DeviceTypeCode.WETREVERB; }
         }
+
+        public override byte ManualMessageType
+        {
+            get
+            {
+                return 0xA1;
+            }
+        }
+
+        public override ExpressionDevice Copy()
+        {
+        	var device = new WetReverb();
+        	device.ExpressionDoubleValue = this.ExpressionDoubleValue;
+        	return device;
+        }
     }
 }

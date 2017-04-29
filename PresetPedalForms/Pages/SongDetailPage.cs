@@ -24,23 +24,30 @@ namespace PresetPedalForms
             ToolbarItems.Add(new ToolbarItem("Pick Preset", "", HandlePickPresetAction, ToolbarItemOrder.Primary, 0));
 
             nameEntry = new Entry();
+            nameEntry.Effects.Add(new ClearEntryEffect());
+            nameEntry.Effects.Add(new EntryCapitalizeKeyboard());
             nameEntry.SetBinding(Entry.TextProperty, "Name");
 
             presetList = new ListView();
             //presetList.ItemsSource = 
+            presetList.ItemTemplate = new DataTemplate(typeof(MovableViewCell));
             presetList.SetBinding(ListView.ItemsSourceProperty, "Presets");
+            presetList.ItemSelected += (sender, e) =>
+            {
+                ((ListView)sender).SelectedItem = null;
+            };
+            presetList.RowHeight = 35;
 
             var grid = new Grid
             {
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 Padding = new Thickness(5)
             };
-
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
-            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-
             grid.Children.Add(new Label { Text = "Name:", VerticalTextAlignment = TextAlignment.Center }, 0, 0);
             grid.Children.Add(nameEntry, 1, 0);
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(50) });
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(30) });
 
             Title = "Detail";
             Content = new StackLayout
@@ -60,6 +67,15 @@ namespace PresetPedalForms
         //    if (this.Navigation.NavigationStack.Count > 0)
         //        Debug.WriteLine(this.Navigation.NavigationStack.Count);
         //}
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            App.SaveData();
+        }
+
+        SelectMultipleBasePage<CheckItem> selectPage;
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
@@ -72,9 +88,9 @@ namespace PresetPedalForms
             List<CheckItem> checkItems = new List<CheckItem>();
             foreach (var preset in App.Presets)
             {
-                checkItems.Add(new CheckItem() { preset = preset, Selected = bindingSong.Presets.Contains(preset) });
+                checkItems.Add(new CheckItem() { preset = preset, Selected = bindingSong.Presets.Any(p => p.ID == preset.ID) });
             }
-            SelectMultipleBasePage<CheckItem> selectPage = new SelectMultipleBasePage<CheckItem>(checkItems);
+            selectPage = new SelectMultipleBasePage<CheckItem>(checkItems);
             selectPage.Disappearing += (sender, e) =>
             {
                 bindingSong.Presets = selectPage.GetSelection().Select(c => c.preset).ToList().ToObservableCollection();
