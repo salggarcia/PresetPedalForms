@@ -15,7 +15,7 @@ namespace PresetPedalForms
         {
             listView = new ListView();
             listView.ItemsSource = App.Presets;
-            var temp = new DataTemplate(() => { return new MovableViewCell(); });
+            var temp = new DataTemplate(() => { return new MovableViewCell(true, true); });
             listView.ItemTemplate = temp;
             listView.ItemSelected += ListView_ItemSelected;
             listView.RowHeight = 40;

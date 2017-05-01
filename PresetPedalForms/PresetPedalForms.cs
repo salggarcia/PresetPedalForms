@@ -93,7 +93,7 @@ namespace PresetPedalForms
             // First time, create first User and save it
             //User.mainProfile.NumberOfLoops = 4;
             User.Presets.Add(new Preset() { Name = "First Preset" });
-            User.Songs.Add(new Song() { Name = "First Song", Presets = new ObservableCollection<Preset>() { User.Presets[0] } });
+            User.Songs.Add(new Song() { Name = "First Song", Presets = new ObservableCollectionEx<Preset>() { User.Presets[0] } });
             await SaveData();
         }
 

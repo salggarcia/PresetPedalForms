@@ -21,6 +21,19 @@ namespace PresetPedalForms
             return oc;
         }
 
+        public static ObservableCollectionEx<T> ToObservableCollectionEx<T>(this List<T> list)
+        {
+        	var oc = new ObservableCollectionEx<T>();
+
+        	if(list != null)
+        	{
+        		foreach(var item in list)
+        			oc.Add(item);
+        	}
+
+        	return oc;
+        }
+
         public static void Resize<T>(this List<T> list, int size, T defaultValue)
         {
             int cur = list.Count;

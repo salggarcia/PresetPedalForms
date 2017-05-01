@@ -30,7 +30,7 @@ namespace PresetPedalForms
 
             presetList = new ListView();
             //presetList.ItemsSource = 
-            presetList.ItemTemplate = new DataTemplate(typeof(MovableViewCell));
+            presetList.ItemTemplate = new DataTemplate(() => { return new MovableViewCell(false, false); });
             presetList.SetBinding(ListView.ItemsSourceProperty, "Presets");
             presetList.ItemSelected += (sender, e) =>
             {
@@ -93,7 +93,7 @@ namespace PresetPedalForms
             selectPage = new SelectMultipleBasePage<CheckItem>(checkItems);
             selectPage.Disappearing += (sender, e) =>
             {
-                bindingSong.Presets = selectPage.GetSelection().Select(c => c.preset).ToList().ToObservableCollection();
+                bindingSong.Presets = selectPage.GetSelection().Select(c => c.preset).ToList().ToObservableCollectionEx();
             };
             selectPage.Title = "Pick Presets";
             await Navigation.PushAsync(selectPage);

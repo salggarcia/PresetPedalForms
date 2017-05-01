@@ -9,7 +9,7 @@ namespace PresetPedalForms.Models
         public Song()
         {
             Name = "New Song";
-            Presets = new ObservableCollection<Preset>();
+            Presets = new ObservableCollectionEx<Preset>();
         }
 
         public string Name { get; set; }
@@ -19,7 +19,7 @@ namespace PresetPedalForms.Models
             return Name;
         }
 
-        public ObservableCollection<Preset> Presets { get; set; }
+        public ObservableCollectionEx<Preset> Presets { get; set; }
 
         //public List<long> PresetIDs { get; set; }
     }

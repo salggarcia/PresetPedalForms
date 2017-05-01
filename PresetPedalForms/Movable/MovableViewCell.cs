@@ -35,7 +35,7 @@ namespace PresetPedalForms
     /// </summary>
     public class MovableViewCell : ViewCell
     {
-        public MovableViewCell(bool noActions = false)
+        public MovableViewCell(bool enableCopyAction, bool enableDeleteAction)
         {
             StackLayout layout = new StackLayout();
             layout.Padding = new Thickness(15, 0);
@@ -44,17 +44,20 @@ namespace PresetPedalForms
             label.SetBinding(Label.TextProperty, "Name");
             layout.Children.Add(label);
 
-            var moreAction = new MenuItem { Text = "Copy" };
-            moreAction.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
-            moreAction.Clicked += OnCopy;
+            var copyAction = new MenuItem { Text = "Copy" };
+            copyAction.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
+            copyAction.Clicked += OnCopy;
 
             var deleteAction = new MenuItem { Text = "Delete", IsDestructive = true }; // red background
             deleteAction.SetBinding(MenuItem.CommandParameterProperty, new Binding("."));
             deleteAction.Clicked += OnDelete;
 
-            if(!noActions)
+            if(enableCopyAction)
             {
-                this.ContextActions.Add(moreAction);
+                this.ContextActions.Add(copyAction);
+            }
+            if(enableDeleteAction)
+            {
                 this.ContextActions.Add(deleteAction);
             }
 
@@ -119,7 +122,7 @@ namespace PresetPedalForms
         	var songIdx = App.Songs.IndexOf(song);
         	var newSong = new Song()
         	{
-        		Name = song.Name,
+        		Name = song.Name + " Copy",
         		Presets = song.Presets
         	};
         	App.Songs.Insert(songIdx + 1, newSong);
